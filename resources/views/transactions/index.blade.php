@@ -6,10 +6,20 @@
 <div class="container-fluid px-4 px-lg-5 py-4">
 
     <x-page-header title="Transaksi" subtitle="Catat dan pantau pemasukan serta pengeluaranmu.">
-        <a href="{{ route('transactions.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-lg me-1"></i>
-            Tambah transaksi
-        </a>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{{ route('transactions.export.pdf', request()->query()) }}" class="btn btn-outline-danger">
+                <i class="bi bi-file-earmark-pdf me-1"></i>
+                Export PDF
+            </a>
+            <a href="{{ route('transactions.export.excel', request()->query()) }}" class="btn btn-outline-success">
+                <i class="bi bi-file-earmark-excel me-1"></i>
+                Export Excel
+            </a>
+            <a href="{{ route('transactions.create') }}" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-1"></i>
+                Tambah transaksi
+            </a>
+        </div>
     </x-page-header>
 
     {{-- Excel import feedback --}}
@@ -59,82 +69,80 @@
     @endif
 
     {{-- Filters --}}
-    <div class="card transaction-filter-card mb-4">
-        <div class="card-body">
+        <div class="card transaction-filter-card mb-4">
+            <div class="card-body">
 
-            <form action="{{ route('transactions.index') }}" method="GET">
+                <form action="{{ route('transactions.index') }}" method="GET">
 
-                <div class="row g-3 align-items-end">
+                    <div class="row g-3 align-items-end">
 
-                    <div class="col-12 col-md-6 col-xl-2">
-                        <label for="type" class="form-label">
-                            Jenis
-                        </label>
+                        <div class="col-12 col-md-6 col-xl-2">
+                            <label for="type" class="form-label">
+                                Jenis
+                            </label>
 
-                        <select name="type" id="type" class="form-select">
-                            <option value="">Semua jenis</option>
-                            <option value="income" {{ request('type')==='income' ? 'selected' : '' }}>
-                                Pemasukan
-                            </option>
-                            <option value="expense" {{ request('type')==='expense' ? 'selected' : '' }}>
-                                Pengeluaran
-                            </option>
-                        </select>
+                            <select name="type" id="type" class="form-select">
+                                <option value="">Semua jenis</option>
+                                <option value="income" {{ request('type')==='income' ? 'selected' : '' }}>
+                                    Pemasukan
+                                </option>
+                                <option value="expense" {{ request('type')==='expense' ? 'selected' : '' }}>
+                                    Pengeluaran
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-3">
+                            <label for="category_id" class="form-label">
+                                Kategori
+                            </label>
+
+                            <select name="category_id" id="category_id" class="form-select">
+                                <option value="">Semua kategori</option>
+
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ request('category_id')==$category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                    ({{ $category->type === 'income' ? 'Pemasukan' : 'Pengeluaran' }})
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-2">
+                            <label for="start_date" class="form-label">
+                                Dari tanggal
+                            </label>
+
+                            <input type="date" name="start_date" id="start_date" class="form-control"
+                                value="{{ request('start_date') }}">
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-2">
+                            <label for="end_date" class="form-label">
+                                Sampai
+                            </label>
+
+                            <input type="date" name="end_date" id="end_date" class="form-control"
+                                value="{{ request('end_date') }}">
+                        </div>
+
+                        <div class="col-12 d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-funnel me-1"></i>
+                                Filter
+                            </button>
+
+                            <a href="{{ route('transactions.index') }}" class="btn btn-light">
+                                Reset
+                            </a>
+                        </div>
+
                     </div>
+                </form>
 
-                    <div class="col-12 col-md-6 col-xl-3">
-                        <label for="category_id" class="form-label">
-                            Kategori
-                        </label>
-
-                        <select name="category_id" id="category_id" class="form-select">
-                            <option value="">Semua kategori</option>
-
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ request('category_id')==$category->id ? 'selected' :
-                                '' }}
-                                >
-                                {{ $category->name }}
-                                ({{ $category->type === 'income' ? 'Pemasukan' : 'Pengeluaran' }})
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-12 col-md-6 col-xl-2">
-                        <label for="start_date" class="form-label">
-                            Dari tanggal
-                        </label>
-
-                        <input type="date" name="start_date" id="start_date" class="form-control"
-                            value="{{ request('start_date') }}">
-                    </div>
-
-                    <div class="col-12 col-md-6 col-xl-2">
-                        <label for="end_date" class="form-label">
-                            Sampai
-                        </label>
-
-                        <input type="date" name="end_date" id="end_date" class="form-control"
-                            value="{{ request('end_date') }}">
-                    </div>
-
-                    <div class="col-12 d-flex flex-wrap gap-2">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-funnel me-1"></i>
-                            Filter
-                        </button>
-
-                        <a href="{{ route('transactions.index') }}" class="btn btn-light">
-                            Reset
-                        </a>
-                    </div>
-
-                </div>
-            </form>
-
+            </div>
         </div>
-    </div>
 
     {{-- Transaction history --}}
     <div class="card transaction-list-card">
