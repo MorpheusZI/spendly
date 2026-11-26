@@ -47,6 +47,12 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile/photo', [ProfileController::class, 'removePhoto'])
         ->name('profile.remove-photo');
+
+    Route::get('/transactions/export/pdf', [TransactionController::class, 'exportPdf'])
+        ->name('transactions.export.pdf');
+
+    Route::get('/transactions/export/excel', [TransactionController::class, 'exportExcel'])
+    ->name('transactions.export.excel');
 });
 
 Route::get('/', function () {
