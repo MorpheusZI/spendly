@@ -6,6 +6,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\JournalEntryController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])
@@ -53,6 +56,24 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/transactions/export/excel', [TransactionController::class, 'exportExcel'])
     ->name('transactions.export.excel');
+    Route::get('/reports', [ReportController::class, 'index'])
+        ->name('reports.index');
+
+    Route::get('/reports/download', [ReportController::class, 'download'])
+        ->name('reports.download');
+
+    Route::get('/transactions/export-excel', [ExcelController::class, 'export'])
+        ->name('transactions.export');
+
+    Route::get('/transactions/excel-template', [ExcelController::class, 'template'])
+        ->name('transactions.template');
+
+    Route::post('/transactions/import-excel', [ExcelController::class, 'import'])
+        ->name('transactions.import');
+
+    Route::resource('journal', JournalEntryController::class)
+        ->parameters(['journal' => 'journal'])
+        ->names('journal');
 });
 
 Route::get('/', function () {
@@ -60,3 +81,4 @@ Route::get('/', function () {
         ? redirect()->route('dashboard')
         : redirect()->route('login');
 });
+

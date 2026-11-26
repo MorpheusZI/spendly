@@ -22,6 +22,52 @@
         </div>
     </x-page-header>
 
+    {{-- Excel import feedback --}}
+    @if (session('error'))
+    <div class="alert alert-danger mb-4" role="alert">
+        @if (is_array(session('error')))
+        {{ json_encode(session('error'), JSON_UNESCAPED_UNICODE) }}
+        @else
+        {{ session('error') }}
+        @endif
+    </div>
+    @endif
+
+    @if (session('excel_import_result'))
+    @php
+    $importResult = session('excel_import_result');
+    @endphp
+
+    @if (($importResult['imported'] ?? 0) > 0)
+    <div class="alert alert-success mb-4" role="alert">
+        <strong>Import berhasil!</strong>
+        {{ $importResult['imported'] }} transaksi berhasil diimpor.
+    </div>
+    @else
+    <div class="alert alert-warning mb-4" role="alert">
+        Tidak ada transaksi yang berhasil diimpor.
+    </div>
+    @endif
+
+    @if (!empty($importResult['errors']))
+    <div class="alert alert-warning mb-4" role="alert">
+        <strong>Beberapa baris gagal diimpor:</strong>
+
+        <ul class="mb-0 mt-2">
+            @foreach ($importResult['errors'] as $error)
+            <li>
+                @if (is_array($error))
+                {{ json_encode($error, JSON_UNESCAPED_UNICODE) }}
+                @else
+                {{ $error }}
+                @endif
+            </li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    @endif
+
     {{-- Filters --}}
         <div class="card transaction-filter-card mb-4">
             <div class="card-body">
@@ -216,6 +262,57 @@
     <div class="text-muted small mt-3">
         Total {{ $transactions->count() }} transaksi.
     </div>
+
+    <br>
+    <div class="excel-tools mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+                <h5 class="mb-1">Import & Export Excel</h5>
+                <p class="text-muted mb-0 small">
+                    Kelola transaksi dalam jumlah banyak melalui Excel.
+                </p>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ route('transactions.template') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-file-earmark-arrow-down me-1"></i>
+                    Template
+                </a>
+
+                <a href="{{ route('transactions.export') }}" class="btn btn-outline-primary">
+                    <i class="bi bi-download me-1"></i>
+                    Export Excel
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <form action="{{ route('transactions.import') }}" method="POST" enctype="multipart/form-data"
+            class="d-flex flex-wrap align-items-end gap-3">
+            @csrf
+
+            <div class="flex-grow-1" style="min-width: 220px;">
+                <label for="excel_file" class="form-label">
+                    Import file Excel (.xlsx)
+                </label>
+
+                <input type="file" class="form-control" name="file" id="excel_file" accept=".xlsx" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-upload me-1"></i>
+                Import Transaksi
+            </button>
+        </form>
+
+        <small class="text-muted d-block mt-2">
+            Gunakan template Spendly agar format data sesuai.
+            Maksimal ukuran file 10 MB.
+        </small>
+    </div>
+
+
 
 </div>
 @endsection

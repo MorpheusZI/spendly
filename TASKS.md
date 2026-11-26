@@ -349,54 +349,50 @@ Suggested typography: Plus Jakarta Sans and Sora.
 
 ## Phase 10 — Currency API Integration
 
-- [ ] Select a suitable public exchange-rate API.
-- [ ] Review API availability and usage limits.
-- [ ] Create `CurrencyService.php`.
-- [ ] Retrieve exchange-rate information.
-- [ ] Handle API failures and timeouts.
-- [ ] Cache exchange-rate responses where appropriate.
-- [ ] Display exchange-rate information on the dashboard.
-- [ ] Clearly indicate that currency conversion is informational only.
-- [ ] Keep all Spendly transaction amounts in IDR.
-
-**Status:** Not started.
+- [x] Select a suitable public exchange-rate API.
+- [x] Review API availability and usage limits.
+- [x] Create `CurrencyService.php`.
+- [x] Retrieve exchange-rate information.
+- [x] Handle API failures and timeouts.
+- [x] Cache exchange-rate responses where appropriate.
+- [x] Display exchange-rate information on the dashboard.
+- [x] Clearly indicate that currency conversion is informational only.
+- [x] Keep all Spendly transaction amounts in IDR.
 
 ## Phase 11 — PDF Processing (FPDF)
 
-- [ ] Create `ReportService.php`.
-- [ ] Prepare report data from the authenticated user's transactions.
-- [ ] Generate PDF reports using FPDF.
-- [ ] Include user information.
-- [ ] Include report period.
-- [ ] Include income summary.
-- [ ] Include expense summary.
-- [ ] Include balance summary.
-- [ ] Include transaction details.
-- [ ] Format financial amounts in IDR.
-- [ ] Add a download PDF action.
-- [ ] Validate report date filters.
-- [ ] Ensure users can only export their own data.
-- [ ] Test PDF layout and generated content.
+- [x] Create `ReportService.php`.
+- [x] Prepare report data from the authenticated user's transactions.
+- [x] Generate PDF reports using FPDF.
+- [x] Include user information.
+- [x] Include report period.
+- [x] Include income summary.
+- [x] Include expense summary.
+- [x] Include balance summary.
+- [x] Include transaction details.
+- [x] Format financial amounts in IDR.
+- [x] Add a download PDF action.
+- [x] Validate report date filters.
+- [x] Ensure users can only export their own data.
+- [x] Test PDF layout and generated content.
 
-**Status:** Not started.
 
 ## Phase 12 — Excel Processing (PhpSpreadsheet)
 
-- [ ] Create `SpreadsheetService.php`.
-- [ ] Create Excel export functionality.
-- [ ] Export transaction history.
-- [ ] Include appropriate column headings.
-- [ ] Include dates, categories, types, descriptions, and amounts.
-- [ ] Format spreadsheet columns and currency values.
-- [ ] Create Excel import functionality.
-- [ ] Validate uploaded spreadsheet files.
-- [ ] Validate imported rows and required columns.
-- [ ] Handle invalid rows with understandable error messages.
-- [ ] Prevent importing transactions belonging to another user.
-- [ ] Add duplicate handling where appropriate.
-- [ ] Test export and import with realistic data.
+- [x] Create `SpreadsheetService.php`.
+- [x] Create Excel export functionality.
+- [x] Export transaction history.
+- [x] Include appropriate column headings.
+- [x] Include dates, categories, types, descriptions, and amounts.
+- [x] Format spreadsheet columns and currency values.
+- [x] Create Excel import functionality.
+- [x] Validate uploaded spreadsheet files.
+- [x] Validate imported rows and required columns.
+- [x] Handle invalid rows with understandable error messages.
+- [x] Prevent importing transactions belonging to another user.
+- [x] Add duplicate handling where appropriate.
+- [x] Test export and import with realistic data.
 
-**Status:** Not started.
 
 ## Phase 13 — WYSIWYG Editor
 
@@ -555,12 +551,20 @@ Keep the application focused on tracking income, expenses, categories, and perso
 If the conversation context runs out, upload this `TASKS.md` and provide the following instruction:
 
 > We are continuing development of Spendly, a Laravel 13 personal expense tracker. Read TASKS.md carefully and use it as the project roadmap and progress tracker. Follow the existing architecture and technical decisions. Continue from the first incomplete task, inspect any existing code or files I provide, and implement the next feature step by step. You are responsible for writing the code, explaining file locations, and providing commands and tests. Update TASKS.md as we complete tasks. Do not restart the project or unnecessarily rewrite working features.
+---
 
-**Current development position:**
+## Instructions for Continuing Development
 
-1. Project dependencies and initial setup are complete.
-2. Authentication routes, controller, and basic Blade pages have been written.
-3. Authentication testing and refinement are the immediate next tasks.
-4. After authentication is verified, proceed to database design and migrations.
+Continue developing Spendly from the current milestone without restarting or unnecessarily rewriting existing features.
 
-**Last completed development milestone:** Initial authentication implementation for Spendly.
+- Read this `TASKS.md` before continuing.
+- Follow the existing Laravel 13 architecture and technical conventions.
+- Preserve all previously working functionality.
+- Provide complete code for files being created or replaced.
+- Provide exact file paths and Fish-compatible terminal commands.
+- Implement features in cohesive batches.
+- Include testing steps before marking tasks complete.
+- Update this checklist as features are implemented and verified.
+- Proceed to the next incomplete phase only after the current phase has been tested.
+
+Spendly is a personal expense tracker built with Laravel 13, Blade, Bootstrap 5, MySQL, and JavaScript. The application uses Indonesian UI text, IDR currency, and Asia/Jakarta timezone.

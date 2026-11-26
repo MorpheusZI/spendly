@@ -1086,3 +1086,75 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.75rem;
     line-height: 1.6;
 }
+/* =================
+   PDF REPORTS
+================= */
+
+.report-card {
+    background: var(--spendly-surface);
+    border: 1px solid var(--spendly-border);
+    border-radius: 16px;
+}
+
+.report-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(83, 109, 254, 0.1);
+    color: var(--spendly-primary);
+    font-size: 1.5rem;
+}
+
+
+/* Financial journal */
+.journal-preview {
+    overflow-wrap: anywhere;
+    max-height: 180px;
+    overflow: hidden;
+    position: relative;
+}
+
+.journal-preview img {
+    max-width: 100%;
+    height: auto;
+}
+
+.journal-preview table {
+    max-width: 100%;
+}
+
+.journal-content {
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.journal-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.journal-content table {
+    max-width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.journal-content td,
+.journal-content th {
+    border: 1px solid #e8eaf0;
+    padding: 8px;
+}
+
+.journal-content ul,
+.journal-content ol {
+    padding-left: 1.5rem;
+}
+
+.journal-content blockquote {
+    border-left: 3px solid #536dfe;
+    padding-left: 1rem;
+    color: #777f91;
+}
